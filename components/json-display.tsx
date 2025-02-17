@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Check, Copy } from "lucide-react";
+import { useState } from "react";
 
 interface JsonDisplayProps {
   data: unknown;
@@ -12,7 +12,11 @@ export function JsonDisplay({ data }: JsonDisplayProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+    navigator.clipboard
+      .writeText(JSON.stringify(data, null, 2))
+      .catch((error) =>
+        console.error("Error copying JSON to clipboard:", error)
+      );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -25,7 +29,12 @@ export function JsonDisplay({ data }: JsonDisplayProps) {
         className="absolute right-2 top-2 text-muted-foreground hover:text-foreground"
         onClick={handleCopy}
       >
-        <Copy className="h-4 w-4" />
+        {copied ? (
+          <Check className="h-4 w-4 text-green-500" />
+        ) : (
+          <Copy className="h-4 w-4" />
+        )}
+        <span className="sr-only">{copied ? "Copied" : "Copy JSON"}</span>
         <span className="sr-only">Copy JSON</span>
       </Button>
       <pre className="overflow-x-auto text-sm">
