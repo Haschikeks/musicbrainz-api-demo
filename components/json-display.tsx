@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Copy } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Copy } from "lucide-react";
 
 interface JsonDisplayProps {
-  data: any
+  data: unknown;
 }
 
 export function JsonDisplay({ data }: JsonDisplayProps) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(JSON.stringify(data, null, 2))
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="relative rounded-lg border bg-muted/50 p-4">
@@ -32,6 +32,5 @@ export function JsonDisplay({ data }: JsonDisplayProps) {
         <code>{JSON.stringify(data, null, 2)}</code>
       </pre>
     </div>
-  )
+  );
 }
-

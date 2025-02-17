@@ -1,11 +1,16 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type React from "react";
+import { useState } from "react";
 
 const LOOKUP_ENTITIES = [
   "area",
@@ -22,28 +27,31 @@ const LOOKUP_ENTITIES = [
   "series",
   "url",
   "work",
-]
+] as const;
 
 export type LookupFormData = {
-  entity: string
-  mbid: string
-}
+  entity: (typeof LOOKUP_ENTITIES)[number];
+  mbid: string;
+};
 
 interface LookupFormProps {
-  onSubmit: (data: LookupFormData) => void
-  isLoading?: boolean
+  onSubmit: (data: LookupFormData) => void;
+  isLoading?: boolean;
 }
 
 export function LookupForm({ onSubmit, isLoading }: LookupFormProps) {
-  const [entity, setEntity] = useState<string>("")
-  const [mbid, setMbid] = useState<string>("")
+  const [entity, setEntity] = useState<string>("");
+  const [mbid, setMbid] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (entity && mbid) {
-      onSubmit({ entity, mbid })
+      onSubmit({
+        entity: entity as LookupFormData["entity"],
+        mbid: mbid.trim(),
+      });
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,10 +84,13 @@ export function LookupForm({ onSubmit, isLoading }: LookupFormProps) {
           className="w-full"
         />
       </div>
-      <Button type="submit" className="w-full" disabled={!entity || !mbid || isLoading}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={!entity || !mbid || isLoading}
+      >
         {isLoading ? "Loading..." : "Lookup"}
       </Button>
     </form>
-  )
+  );
 }
-
