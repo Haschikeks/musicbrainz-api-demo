@@ -83,6 +83,17 @@ export function LookupForm({ onSubmit, isLoading }: LookupFormProps) {
           placeholder="Enter MBID"
           className="w-full"
         />
+        <div className="pt-2">
+          <p>Example Artist:</p>
+          <ul>
+            <li>
+              Eminem:{" "}
+              <code className="bg-gray-200 dark:bg-gray-700 px-1">
+                b95ce3ff-3d05-4e87-9e01-c97b66af13d4
+              </code>
+            </li>
+          </ul>
+        </div>
       </div>
       <Button
         type="submit"

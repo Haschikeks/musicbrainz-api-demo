@@ -2,6 +2,7 @@
 
 import { JsonDisplay } from "@/components/json-display";
 import { LookupForm, type LookupFormData } from "@/components/lookup-form";
+import PreviewCode from "@/components/preview-code";
 import { MusicBrainzApi } from "musicbrainz-api";
 import { useState } from "react";
 import pkg from "./../../package.json";
@@ -14,6 +15,9 @@ const mbApi = new MusicBrainzApi({
 
 export default function ClientPage() {
   const [data, setData] = useState<unknown>(null);
+  const [formData, setFormData] = useState<LookupFormData | undefined>(
+    undefined
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (formData: LookupFormData) => {
@@ -22,6 +26,7 @@ export default function ClientPage() {
       // @ts-expect-error - We know this is safe because we're using the correct entity type
       const result = await mbApi.lookup(formData.entity, formData.mbid);
       setData(result);
+      setFormData(formData);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -39,8 +44,9 @@ export default function ClientPage() {
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        <div>
+        <div className="flex gap-2 flex-col">
           <LookupForm onSubmit={handleSubmit} isLoading={isLoading} />
+          <PreviewCode lookup={formData} />
         </div>
         <div>{data != null && <JsonDisplay data={data} />}</div>
       </div>
