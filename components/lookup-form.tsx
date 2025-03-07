@@ -1,14 +1,8 @@
 "use client";
 
+import Combobox from "@/components/combobox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import type React from "react";
 import { useState } from "react";
 
@@ -55,22 +49,27 @@ export function LookupForm({ onSubmit, isLoading }: LookupFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
+      <div className="flex flex-col gap-2">
         <label htmlFor="entity" className="text-sm font-medium">
           Entity Type
         </label>
-        <Select value={entity} onValueChange={setEntity}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select an entity type" />
-          </SelectTrigger>
-          <SelectContent>
-            {LOOKUP_ENTITIES.map((entity) => (
-              <SelectItem key={entity} value={entity}>
-                {entity}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Combobox
+          onChange={setEntity}
+          options={LOOKUP_ENTITIES.map((e) => ({ label: e, value: e }))}
+          value={entity}
+        />
+        {/*<Select value={entity} onValueChange={setEntity}>*/}
+        {/*  <SelectTrigger>*/}
+        {/*    <SelectValue placeholder="Select an entity type" />*/}
+        {/*  </SelectTrigger>*/}
+        {/*  <SelectContent>*/}
+        {/*    {LOOKUP_ENTITIES.map((entity) => (*/}
+        {/*      <SelectItem key={entity} value={entity}>*/}
+        {/*        {entity}*/}
+        {/*      </SelectItem>*/}
+        {/*    ))}*/}
+        {/*  </SelectContent>*/}
+        {/*</Select>*/}
       </div>
       <div className="space-y-2">
         <label htmlFor="mbid" className="text-sm font-medium">
