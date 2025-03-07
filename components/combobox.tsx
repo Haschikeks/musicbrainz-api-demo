@@ -23,6 +23,7 @@ export type ComboboxOption = {
 };
 
 type ComboboxProps = {
+  emptyText?: string;
   onChange?: (value: string) => void;
   options: ComboboxOption[];
   placeholder?: string;
@@ -30,6 +31,7 @@ type ComboboxProps = {
 };
 
 function Combobox({
+  emptyText = "No options available.",
   onChange,
   options,
   placeholder = "Select...",
@@ -54,9 +56,9 @@ function Combobox({
       </PopoverTrigger>
       <PopoverContent className="p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="Search..." />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
               {options.map((opt) => (
                 <CommandItem

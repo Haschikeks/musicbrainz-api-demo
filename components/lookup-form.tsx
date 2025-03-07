@@ -58,18 +58,6 @@ export function LookupForm({ onSubmit, isLoading }: LookupFormProps) {
           options={LOOKUP_ENTITIES.map((e) => ({ label: e, value: e }))}
           value={entity}
         />
-        {/*<Select value={entity} onValueChange={setEntity}>*/}
-        {/*  <SelectTrigger>*/}
-        {/*    <SelectValue placeholder="Select an entity type" />*/}
-        {/*  </SelectTrigger>*/}
-        {/*  <SelectContent>*/}
-        {/*    {LOOKUP_ENTITIES.map((entity) => (*/}
-        {/*      <SelectItem key={entity} value={entity}>*/}
-        {/*        {entity}*/}
-        {/*      </SelectItem>*/}
-        {/*    ))}*/}
-        {/*  </SelectContent>*/}
-        {/*</Select>*/}
       </div>
       <div className="space-y-2">
         <label htmlFor="mbid" className="text-sm font-medium">
